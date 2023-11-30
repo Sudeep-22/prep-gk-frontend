@@ -2,7 +2,7 @@ import { useState } from "react";
 import NoteContext from "./NoteContext";
 
 const NoteState = (props) =>{
-    const host = "mongodb+srv://sudeeppoojari03:Premitsomeone6656@cluster0.ukci0qa.mongodb.net/?retryWrites=true&w=majority"
+    const host = "https://prep-gk-backend.onrender.com"
     const getAllNotes = async() =>{
       const response = await fetch(`${host}/api/notes/fetchNotes`, {
         method: "GET",
