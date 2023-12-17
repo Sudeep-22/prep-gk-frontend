@@ -63,7 +63,7 @@ const News = (props) => {
           loader={<Spinner/>}
           scrollableTarget="scrollableDiv"
         >
-          <h1 className="text-center my-3">GK-Prep - Top {props.category} headlines</h1>            
+          <h1 className="text-center my-3">Prep-GK - Top {props.category} headlines</h1>            
           {loading && <Spinner/>}
             <div className="container">
             <div className="row">

@@ -5,7 +5,7 @@ const Login = (props) => {
     let Navigate = useNavigate();
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const response = await fetch('mongodb+srv://sudeeppoojari03:Premitsomeone6656@cluster0.ukci0qa.mongodb.net/?retryWrites=true&w=majority/api/auth/login', {
+        const response = await fetch('https://prep-gk-backend.onrender.com/api/auth/login', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
