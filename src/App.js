@@ -1,4 +1,4 @@
-require('dotenv/config');
+// require('dotenv/config');
 import './App.css';
 import Navbar from './components/Navbar';
 import NoteState from './context/notes/NoteState';
