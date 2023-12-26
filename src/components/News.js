@@ -75,10 +75,6 @@ const News = (props) => {
             </div>
             </div>
             </InfiniteScroll>
-            {/* <div className="container d-flex justify-content-evenly">
-            <button disabled={state.page<=1} type="button" class="btn btn-dark" onClick={handlePrevButton}>&larr; Previous</button>
-            <button disabled={state.noOfItems<state.page*props.pageSize}type="button" class="btn btn-dark" onClick={handleNextButton}>Next &rarr;</button>
-          </div> */}
           </>
     )
   }

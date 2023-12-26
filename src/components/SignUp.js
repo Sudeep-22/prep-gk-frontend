@@ -14,7 +14,6 @@ const SignUp = (props) => {
           body: JSON.stringify({name:details.name,email:details.email,password:details.password})
         });
           const json=await response.json()
-          console.log(json);
           if(json.success){
             localStorage.setItem('token',json.authToken)
             props.setAlert("success","User created Successful")

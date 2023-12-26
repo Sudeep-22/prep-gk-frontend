@@ -13,7 +13,6 @@ const Navbar = () => {
   }
   return (
     <div>
-      {console.log(location.pathname)}
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
   <Link className="navbar-brand" to="/">

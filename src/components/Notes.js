@@ -8,30 +8,38 @@ const Notes = (props) => {
   let Navigate = useNavigate();
   const context = useContext(NoteContext);
   const { notes, getAllNotes, updateNotes } = context;
-  const [note, setNote] = useState({ id:"",etitle: "", edescription: "", etag: "default" })
-  const handleClick = (e) => {
-    updateNotes(note.id,note.etitle,note.edescription)
+  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "default" })
+  const handleClick = () => {
+    updateNotes(note.id, note.etitle, note.edescription)
     refClose.current.click();
     // addNotes(note.etitle, note.edescription, note.etag);
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if(token){
+  //     getAllNotes();
+  //   }
+  //   else{
+  //     console.log("Reached the else statement");
+  //     Navigate("/login");
+  //   }
+  // }, [Navigate,notes,getAllNotes]);
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if(token){
+    if (token) {
       getAllNotes();
-    }
-    else{
-      console.log("Reached the else statement");
+    } else {
       Navigate("/login");
     }
-  }, [Navigate,notes,getAllNotes]);
+  }, [Navigate,getAllNotes,updateNotes]);
   const ref = useRef(null);
   const refClose = useRef(null);
   const updateNote = (currentNote) => {
-    ref.current.click();    
-    setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.content})
+    ref.current.click();
+    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.content })
   };
   return (
     <>
@@ -56,13 +64,13 @@ const Notes = (props) => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="edescription" className="form-label">Description</label>
-                  <input type="Text" className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription}/>
+                  <input type="Text" className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription} />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary"  onClick={handleClick}>Update note</button>
+              <button type="button" className="btn btn-primary" onClick={handleClick}>Update note</button>
             </div>
           </div>
         </div>
@@ -71,12 +79,19 @@ const Notes = (props) => {
       <div className="container">
         <div className="row my-3">
           <h2>Your notes</h2>
-          {notes.length === 0 && <p>No notes to display</p>}
+          {/* {notes.length === 0 && <p>No notes to display</p>}
           {notes.map((note) => {
             return (
               <NoteItem setAlert={props.setAlert} key={note._id} updateNote={updateNote} note={note} />
             );
-          })}
+          })} */}
+          {notes.length === 0 ? (
+            <p>No notes to display</p>
+          ) : (
+            notes.map((note) => (
+              <NoteItem setAlert={props.setAlert} key={note._id} updateNote={updateNote} note={note} />
+            ))
+          )}
         </div>
       </div>
     </>
