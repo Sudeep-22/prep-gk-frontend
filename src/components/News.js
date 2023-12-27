@@ -18,7 +18,7 @@ const News = (props) => {
       props.setProgress(10);
       setLoading(true)
       let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
-      let data = await fetch(url,{headers: new Headers({'X-Requested-With':'YooItWorked'})});
+      let data = await fetch(url,{headers: new Headers({'X-Requested-With':'localhost:3000'})});
       props.setProgress(30);
       let parsedData = await data.json();
       props.setProgress(60);
