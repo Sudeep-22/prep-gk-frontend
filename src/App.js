@@ -4,8 +4,9 @@ import Navbar from './components/Navbar';
 import NoteState from './context/notes/NoteState';
 import About from './components/About';
 import Notes from './components/Notes';
-import News from './components/News';
-import LoadingBar from 'react-top-loading-bar'
+// import News from './components/News';
+import News2 from './components/News2';
+import LoadingBar from 'react-top-loading-bar';
 import {
   BrowserRouter as Router,
   Routes,
@@ -53,14 +54,14 @@ function App() {
           <Alert alert={alertContent} />
           <Routes>
             <Route exact path="/gk-prep" element={<Notes setAlert={setAlert} />} />
-            <Route exact path="/" element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="general" country="in" category="general" />} />
+            <Route exact path="/" element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="general" country="in" category="general" />} />
             <Route exact path="/About" element={<About />} />
-            <Route exact path='/business' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="business" country="in" category="business" />} />
-            <Route exact path='/entertainment' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="entertainment" country="in" category="entertainment" />} />
-            <Route exact path='/health' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="health" country="in" category="health" />} />
-            <Route exact path='/science' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="science" country="in" category="science" />} />
-            <Route exact path='/sports' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="sports" country="in" category="sports" />} />
-            <Route exact path='/technology' element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="technology" country="in" category="technology" />} />
+            <Route exact path='/business' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="business" country="in" category="business" />} />
+            <Route exact path='/entertainment' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="entertainment" country="in" category="entertainment" />} />
+            <Route exact path='/health' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="health" country="in" category="health" />} />
+            <Route exact path='/science' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="science" country="in" category="science" />} />
+            <Route exact path='/sports' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="sports" country="in" category="sports" />} />
+            <Route exact path='/technology' element={<News2 setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} key="technology" country="in" category="technology" />} />
             <Route exact path="/notes" element={<Notes setAlert={setAlert} />} />
             <Route exact path="/login" element={<Login setAlert={setAlert} />} />
             <Route exact path="/signUp" element={<SignUp setAlert={setAlert} />} />
