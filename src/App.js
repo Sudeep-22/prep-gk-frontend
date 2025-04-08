@@ -29,14 +29,14 @@ function App() {
     localStorage.removeItem('token');
   };
   const [alertContent, chgAlertContent] = useState(null);
-  const setAlert = (type, message) => {
+  const setAlert = (type, message, timeInt) => {
     chgAlertContent({
       type: type,
       content: message,
     });
     setTimeout(() => {
       chgAlertContent(null);
-    }, 1500);
+    }, timeInt);
   };
   const pageSize = 9;
   const apiKey = process.env.REACT_APP_NEWS_API ;
@@ -45,7 +45,7 @@ function App() {
     <>
       <Router>
         <NoteState>
-          <Navbar />
+          <Navbar setAlert={setAlert}/>
           <LoadingBar
             color='#f11946'
             height={3}

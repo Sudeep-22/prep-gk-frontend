@@ -8,25 +8,21 @@ const Notes = (props) => {
   let Navigate = useNavigate();
   const context = useContext(NoteContext);
   const { notes, getAllNotes, updateNotes } = context;
-  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "default" })
+  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "general" })
+  
   const handleClick = () => {
-    updateNotes(note.id, note.etitle, note.edescription)
+    updateNotes(note.id, note.etitle, note.edescription);
     refClose.current.click();
-    // addNotes(note.etitle, note.edescription, note.etag);
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if(token){
-  //     getAllNotes();
-  //   }
-  //   else{
-  //     console.log("Reached the else statement");
-  //     Navigate("/login");
-  //   }
-  // }, [Navigate,notes,getAllNotes]);
+
+  const updateNote = (currentNote) => {
+    ref.current.click();
+    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.content});
+  };
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -34,16 +30,15 @@ const Notes = (props) => {
     } else {
       Navigate("/login");
     }
-  }, [Navigate,getAllNotes,updateNotes]);
+  }, [getAllNotes, Navigate]);
+
   const ref = useRef(null);
   const refClose = useRef(null);
-  const updateNote = (currentNote) => {
-    ref.current.click();
-    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.content })
-  };
+
+
   return (
     <>
-      <AddNotes setAlert={props.setAlert} />
+      <AddNotes setAlert={props.setAlert}/>
       {/* <!-- Button trigger modal --> */}
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
@@ -53,7 +48,7 @@ const Notes = (props) => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 className="modal-title" id="exampleModalLabel">Edit Note</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -64,7 +59,7 @@ const Notes = (props) => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="edescription" className="form-label">Description</label>
-                  <input type="Text" className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription} />
+                  <textarea rows={4} cols={40} className="form-control" id="edescription" name="edescription" onChange={onChange} value={note.edescription} />
                 </div>
               </form>
             </div>
@@ -79,12 +74,6 @@ const Notes = (props) => {
       <div className="container">
         <div className="row my-3">
           <h2>Your notes</h2>
-          {/* {notes.length === 0 && <p>No notes to display</p>}
-          {notes.map((note) => {
-            return (
-              <NoteItem setAlert={props.setAlert} key={note._id} updateNote={updateNote} note={note} />
-            );
-          })} */}
           {notes.length === 0 ? (
             <p>No notes to display</p>
           ) : (

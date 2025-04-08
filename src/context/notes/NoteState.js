@@ -1,63 +1,84 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import NoteContext from "./NoteContext";
+
+const host = "https://prep-gk-backend.onrender.com"
+// const host = "http://localhost:5000"
 
 const NoteState = (props) =>{
   const[notes,setNotes] = useState([])
-    const host = "https://prep-gk-backend.onrender.com"
-    // const host = "http://localhost:5000"
-    const getAllNotes = async() =>{
+
+  const getAllNotes = useCallback(async() =>{
+    try {
       const response = await fetch(`${host}/api/notes/fetchNotes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth_token": localStorage.getItem('token')
-        }
+          "auth_token": localStorage.getItem("token"),
+        },
       });
-      const json=await response.json()
-      setNotes(json)
+      const json = await response.json();
+      setNotes(json);
+    } catch (error) {
+      console.error("Error fetching notes:", error);
     }
+  },[]);
 
-    const addNotes = async(title,content,tag) =>{
-      await fetch(`${host}/api/notes/addNotes`, {
+  // Add a new note and update state
+  const addNotes = async (title, content) => {
+    try {
+      const response = await fetch(`${host}/api/notes/addNotes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth_token": localStorage.getItem('token')
+          "auth_token": localStorage.getItem("token"),
         },
-        body: JSON.stringify({title,content,tag})
+        body: JSON.stringify({ title, content }),
       });
-      // const note={
-      //   "_id": "64d0c7bf4f8598b3a7c8d0147",
-      //   "user": "64b96f4666926c27560bb38e",
-      //   "title": title,
-      //   "content": content,
-      //   "tag": tag,
-      //   "date": "2023-08-07T10:30:23.143Z",
-      //   "__v": 0
-      // }
-      // setNotes(notes.concat(note))
-     }
-    const deleteNote = async(id) =>{
-     await fetch(`${host}/api/notes/deleteNotes/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "auth_token": localStorage.getItem('token')
-          }
-        });
+      const json1 = await response.json();
+      console.error(JSON.stringify(json1));
+      getAllNotes();
+    } catch (error) {
+      console.error("Error adding note:", error);
     }
-    const updateNotes = async(id,title,content) => {
-  await fetch(`${host}/api/notes/updateNotes/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "auth_token": localStorage.getItem('token')
-          },
-          body: JSON.stringify({title,content}),
-        });
+  };
+
+  // Delete a note and update state
+  const deleteNotes = async (id) => {
+    try {
+      await fetch(`${host}/api/notes/deleteNotes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth_token": localStorage.getItem("token"),
+        },
+      });
+      setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id));
+    } catch (error) {
+      console.error("Error deleting note:", error);
     }
+  };
+
+  // Update a note
+  const updateNotes = async (id, title, content) => {
+    try {
+      const response = await fetch(`${host}/api/notes/updateNotes/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth_token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ title, content }),
+      });
+      const json1 = await response.json();
+      console.error(JSON.stringify(json1));
+      getAllNotes();
+    } catch (error) {
+      console.error("Error updating note:", error);
+    }
+  };
+
     return(
-    <NoteContext.Provider value={{notes,setNotes,addNotes,deleteNote,updateNotes,getAllNotes}}>
+    <NoteContext.Provider value={{notes,setNotes,addNotes,deleteNotes,updateNotes,getAllNotes}}>
         {props.children}
     </NoteContext.Provider>
     )

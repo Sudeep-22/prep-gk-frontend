@@ -3,10 +3,10 @@ import Loading from './Loading.gif'
 
 const Spinner = () => {
     return (
-      <div class="text-center" style={{height : "50px"}}>
+      <div className="text-center" style={{height : "50px"}}>
         <img src={Loading} alt="Loading" />
       </div>
     )
   }
 
-export default Spinner
+export default Spinner;
